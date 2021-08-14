@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+    <style>
+        body {
+            font-family: 'Roboto';
+            font-size: 16px;
+            color: #333;
+        }
+        
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        h1 {
+            font-size: 20px;
+        }
+        
+        #Jobs {
+            width: 100%;
+            max-width: 900px;
+            margin: 70px auto;
+        }
+        
+        .job {
+            padding: 20px;
+            display: block;
+        }
+        
+        .job:nth-of-type(odd) {
+            background-color: #f5f5f5;
+        }
+        
+        .job:nth-of-type(even) {
+            background-color: #ffffff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="Jobs"></div>
+
+
+    <script>
+        jQuery(document).ready(function($) {
+
+            $(document).ready(function() {
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "JSON",
+                    url: "https://api.gamesjobsdirect.com/v1/job?countrycode=AU&page=1",
+                    success: processJSON
+                });
+
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "JSON",
+                    url: "https://api.gamesjobsdirect.com/v1/job?countrycode=AU&page=2",
+                    success: processJSON
+                });
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "JSON",
+                    url: "https://api.gamesjobsdirect.com/v1/job?countrycode=AU&page=3",
+                    success: processJSON
+                });
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "JSON",
+                    url: "https://api.gamesjobsdirect.com/v1/job?countrycode=AU&page=4",
+                    success: processJSON
+                });
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "JSON",
+                    url: "https://api.gamesjobsdirect.com/v1/job?countrycode=AU&page=5",
+                    success: processJSON
+                });
+
+
+                function processJSON(data) {
+                    $.each(data.items, function(i, item) {
+                        $('<div class="job"></div>').html('<h1><a href="' + item.url + '">' + item.title + '</a></h1><p><em>' + item.displayLocation + '</em><br><strong>' + item.salary + '</strong><br><span class="dateDiv" data-time="' + item.liveDate + '">Date Posted: ' + item.liveDate + '</span></p><p>' + item.description + '</p><div class="job-btn"><a href="' + item.url + '" target="_blank">Find out more</a>').appendTo('#Jobs');
+                    });
+                }
+
+
+            });
+        });
+    </script>
+</body>
+
+</html>
